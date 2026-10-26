@@ -6,7 +6,14 @@ import { Input } from "@material-tailwind/react";
 import { useLoginMutation } from "../redux/userRelated/userApiSlice";
 import { authSuccess } from "../redux/userRelated/userSlice";
 
+const demoAccounts = {
+  admin: { username: "admin", password: "admin123" },
+  parent: { username: "parent1", password: "parent1" },
+  teacher: { username: "teacher1", password: "teacher1" },
+};
+
 function LoginPage({ role }) {
+  const demoAccount = demoAccounts[role];
   const [login, {isLoading}] = useLoginMutation();
   const {
     register,
@@ -90,12 +97,32 @@ function LoginPage({ role }) {
               )}
 
               <button
-                className={`bg-red-700 rounded py-2 hover:bg-red-800 text-white font-bold ${isLoading && `bg-gray-700`}`}
+                className={`rounded py-2  text-white block font-bold ${isLoading ? `bg-gray-800` : `bg-red-700 `}`}
                 type="submit"
                 disabled={isLoading}
               >
+                
                 Đăng nhập
               </button>
+              {demoAccount && (
+                <div className="rounded-lg border border-white/15 bg-white/10 px-4 py-3 text-white shadow-sm">
+                  <p className="mb-2 text-center text-xs font-semibold uppercase tracking-wider text-white/70">
+                    Tài khoản dùng thử
+                  </p>
+                  <div className="flex items-center justify-between gap-4 text-sm">
+                    <span className="text-white/70">Username</span>
+                    <span className="rounded bg-black/20 px-2 py-1 font-medium">
+                      {demoAccount.username}
+                    </span>
+                  </div>
+                  <div className="mt-2 flex items-center justify-between gap-4 text-sm">
+                    <span className="text-white/70">Mật khẩu</span>
+                    <span className="rounded bg-black/20 px-2 py-1 font-medium">
+                      {demoAccount.password}
+                    </span>
+                  </div>
+                </div>
+              )}
             </form>
           </div>
         </div>
