@@ -3,9 +3,9 @@ import cors from "cors";
 import route from "./routes/route.js";
 import mongoose from "mongoose";
 import { app, server } from "./socket/index.js";
+import 'dotenv/config'
 
-const URI =
-  "mongodb+srv://vhoi03:12345@quanlynhatruong.y7r9w.mongodb.net/QuanLyNhaTruong?retryWrites=true&w=majority&appName=QuanLyNhaTruong";
+const URI = process.env.DATABASE_URL
 const PORT = 3000;
 // const app = express();
 
@@ -18,6 +18,7 @@ try {
   console.log("Connect to database successfully!");
 } catch (error) {
   console.log(error);
+  process.exit(1);
 }
 //Listen sever
 server.listen(PORT, () => {
