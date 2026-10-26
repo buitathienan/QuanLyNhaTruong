@@ -4,6 +4,7 @@ import route from "./routes/route.js";
 import mongoose from "mongoose";
 import { app, server } from "./socket/index.js";
 import 'dotenv/config'
+import { seedDemoAccounts } from "./seed/seedDemo.js";
 
 const URI = process.env.DATABASE_URL
 const PORT = 3000;
@@ -16,6 +17,7 @@ app.use("/", route);
 try {
   await mongoose.connect(URI);
   console.log("Connect to database successfully!");
+  seedDemoAccounts();
 } catch (error) {
   console.log(error);
   process.exit(1);
